@@ -13,6 +13,7 @@ Our game will work like so:
 
 ### Stretches
 
+- Add animation to make movements smooth
 - Make the time interval tweakable i.e. can make game harder
 - Once you get past an identicon, the related user's profile will appear in a 'Followers Smashed' area
 - Add an additional score aspect by implementing GitHub stars to grab
