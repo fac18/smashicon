@@ -1,5 +1,5 @@
 import zeroArray from './zeroArray'
-// import buildIdenticon from './buildIdenticon'
+import buildIdenticon from './buildIdenticon'
 
 describe('zeroArray returns array of zero-arrays', () => {
   test('zeroArray(5,10) has appropriate dimensions', () => {
@@ -12,5 +12,11 @@ describe('zeroArray returns array of zero-arrays', () => {
     let randomX = Math.floor(Math.random()*3)
     let randomY = Math.floor(Math.random()*5)
     expect(threeFive[randomX][randomY]).toBe(0)
+  })
+})
+
+describe("buildIdenticon builds 5x5 array representation of given user's identicon", () => {
+  test('fn returns md5 of svnmmrs', () => {
+    const identicon = buildIdenticon('svnmmrs')
   })
 })
