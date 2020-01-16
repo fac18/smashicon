@@ -5,7 +5,7 @@ import './Scoreboard.css';
 const Scoreboard = ({score}) => {
   return (
     <div className="score-container">
-    <span className="score">{score}</span>
+      <span className="score">{score}</span>
     </div>
   )
 }

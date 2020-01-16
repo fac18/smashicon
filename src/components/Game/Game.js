@@ -9,7 +9,7 @@ import buildIdenticon from '../../utils/buildIdenticon'
 
 // hard code data that would be passed in
 const profileUrl = 'https://avatars2.githubusercontent.com/u/50529930?s=400&v=4'
-const interval = 500; // time between steps in ms
+const interval = 250; // time between steps in ms
 const followers = ['svnmmrs','samhstn', 'nikkesan', 'hajimon54', 'albadylic', 'redahaq' , 'pat-cki' , 'bethanyios' , 'tonylomax' , 'crianonim']
 
 const Game = props => {
@@ -53,8 +53,8 @@ const Game = props => {
             setField(field => {
                 return field.map((lane,i) => {
                     const block = lane.shift()
-                    if (block && playerPosition === i ) {
-                        setScore(score+1)// run code for player to gain a point
+                    if (block && playerPosition === i) {
+                        setScore(score => score + 1)// run code for player to gain a point
                     }
                     lane.push(nextIdenticon[i].shift())
                     return lane
@@ -80,8 +80,8 @@ const Game = props => {
             setField(field => {
                 return field.map((lane,i) => {
                     const block = lane.shift()
-                    if (block) {
-                        // run code for player killed ('GAME OVER!')
+                    if (block && playerPosition === i) {
+                        setScore(score => score + 1)// run code for player to gain a point
                     }
                     lane.push(nextIdenticon[i].shift())
                     return lane
