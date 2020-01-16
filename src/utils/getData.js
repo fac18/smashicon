@@ -11,7 +11,7 @@ export const getData = url => {
   return fetch(`${url}?access_token=${token}`)
       .then(handleResponse)
       .catch(err => {
-        throw new Error(`fetch getUserData failed: ${err}`)
+        throw new Error(`fetch getData failed: ${err}`)
       })
 }
 
