@@ -1,19 +1,30 @@
+.game {
+  margin: 2rem;
+  padding: 1rem;
+  border: 1px solid gray;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
 .game-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 12vw) ;
-    /* grid: repeat(3, 12vw) / auto-flow; */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(5, 10vw);
+}
+
 .game-grid__column {
-    display: grid;
-    grid-template-rows: repeat(10, 8vh);
-  }
-  
+  display: grid;
+  grid-template-rows: repeat(10, 10vw);
+}
+
 .game-grid__square {
-    margin: 10px;
-    background: gray;
-  }
+  margin: 10px;
+  background: gray;
+  opacity: 0.5;
+}
 
 .game-grid__square--active {
-    background-color: black;
+  background-color: black;
+  opacity: 1;
 }

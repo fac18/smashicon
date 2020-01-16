@@ -1,0 +1,16 @@
+.player__container {
+  min-height: 10vw;
+  display: grid;
+  grid-template-columns: repeat(5, 10vw);
+  align-items: center;
+  justify-content: center;
+}
+
+.player__icon {
+  max-width: 10vw;
+  max-height: 10vw;
+}
+
+.player__space {
+  margin: 10px;
+}

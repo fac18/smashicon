@@ -1,0 +1,17 @@
+.score-container {
+  border: 5px solid black;
+    margin: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+.score {
+  font-size: 2rem;
+  font-weight: 500;
+}

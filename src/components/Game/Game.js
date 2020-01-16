@@ -1,14 +1,18 @@
 import React from 'react';
+import Player from '../Player/Player'
+import Scoreboard from '../Scoreboard/Scoreboard'
+
 import './Game.css';
+
 import zeroArray from '../../utils/zeroArray'
 import buildIdenticon from '../../utils/buildIdenticon'
 
+// hard code data that would be passed in
+const profileUrl = 'https://avatars2.githubusercontent.com/u/50529930?s=400&v=4'
+const interval = 250; // time between steps in ms
 const followers = ['svnmmrs','samhstn', 'nikkesan', 'hajimon54', 'albadylic', 'redahaq' , 'pat-cki' , 'bethanyios' , 'tonylomax' , 'crianonim']
 
 const Game = props => {
-    // hard code data that would be passed in
-    const interval = 500; // time between steps in ms
-
     // set up states
     const [field, setField] = React.useState(() => {
         const username = 'Ayub3' // github username submitted at landing
@@ -16,7 +20,7 @@ const Game = props => {
         const initialField = zeroArray(5,5)
         initialField.forEach((lane,i) => { initialField[i] = lane.concat(initialIdenticon[i]) })
         return initialField
-    }) 
+    })
     const [nextIdenticon, setNextIdenticon] = React.useState(() => {
         return buildIdenticon(followers.shift())
     })
@@ -29,8 +33,17 @@ const Game = props => {
         const tick = () => { setT(t => t + 1) }
         const timer = setInterval(tick, interval)
 
+        document.addEventListener('keydown', e => {
+          if (e.keyCode === 37) { // left arrow press
+            setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
+          } else if (e.keyCode === 39) { // right arrow press
+            setPlayerPosition(position => position + 1 > 4 ? 4 : position + 1)
+          }
+        })
+
         return () => {
             clearInterval(timer)
+            // window.removeEventListener
         }
     },[])
 
@@ -40,8 +53,8 @@ const Game = props => {
             setField(field => {
                 return field.map((lane,i) => {
                     const block = lane.shift()
-                    if (block) {
-                        // run code for player killed ('GAME OVER!')
+                    if (block && playerPosition === i) {
+                        setScore(score => score + 1)// run code for player to gain a point
                     }
                     lane.push(nextIdenticon[i].shift())
                     return lane
@@ -67,8 +80,8 @@ const Game = props => {
             setField(field => {
                 return field.map((lane,i) => {
                     const block = lane.shift()
-                    if (block) {
-                        // run code for player killed ('GAME OVER!')
+                    if (block && playerPosition === i) {
+                        setScore(score => score + 1)// run code for player to gain a point
                     }
                     lane.push(nextIdenticon[i].shift())
                     return lane
@@ -77,7 +90,9 @@ const Game = props => {
         }
     }, [t])
 
-    return (<div className="game-grid">
+    return (<div className="game">
+      <Scoreboard score={score} />
+      <div className="game-grid">
         {
             field.map((lane,i) => {
                 return <div key={i} className="game-grid__column">
@@ -87,11 +102,14 @@ const Game = props => {
                         : <div key={i.toString() + reversej.toString()} className="game-grid__square"></div>
                 })}
                 </div>
-            })
-        }
-    </div>)
 
-  
+
+            })
+
+        }
+      </div>
+      <Player playerPosition={playerPosition} profileSrc={profileUrl} />
+    </div>)
 }
 
 export default Game
