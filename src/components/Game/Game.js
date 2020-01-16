@@ -2,6 +2,9 @@ import React from 'react';
 import './Game.css';
 import zeroArray from '../../utils/zeroArray'
 import buildIdenticon from '../../utils/buildIdenticon'
+import Scoreboard from '../Scoreboard/Scoreboard'
+
+
 
 const followers = ['svnmmrs','samhstn', 'nikkesan', 'hajimon54', 'albadylic', 'redahaq' , 'pat-cki' , 'bethanyios' , 'tonylomax' , 'crianonim']
 
@@ -40,8 +43,8 @@ const Game = props => {
             setField(field => {
                 return field.map((lane,i) => {
                     const block = lane.shift()
-                    if (block) {
-                        // run code for player killed ('GAME OVER!')
+                    if (block && playerPosition === i ) {
+                        setScore(score+1)// run code for player to gain a point
                     }
                     lane.push(nextIdenticon[i].shift())
                     return lane
@@ -77,7 +80,10 @@ const Game = props => {
         }
     }, [t])
 
-    return (<div className="game-grid">
+    return (
+           
+           <div className="game-grid">
+        
         {
             field.map((lane,i) => {
                 return <div key={i} className="game-grid__column">
@@ -87,7 +93,10 @@ const Game = props => {
                         : <div key={i.toString() + reversej.toString()} className="game-grid__square"></div>
                 })}
                 </div>
+              
+    
             })
+          
         }
     </div>)
 
