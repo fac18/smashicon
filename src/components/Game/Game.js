@@ -1,6 +1,6 @@
 import React from 'react';
 import Player from '../Player/Player'
-// import Score from '../Score/Score'
+import Scoreboard from '../Scoreboard/Scoreboard'
 
 import './Game.css';
 
@@ -53,8 +53,8 @@ const Game = props => {
             setField(field => {
                 return field.map((lane,i) => {
                     const block = lane.shift()
-                    if (block) {
-                        // run code for player killed ('GAME OVER!')
+                    if (block && playerPosition === i ) {
+                        setScore(score+1)// run code for player to gain a point
                     }
                     lane.push(nextIdenticon[i].shift())
                     return lane
@@ -91,6 +91,7 @@ const Game = props => {
     }, [t])
 
     return (<div className="game">
+      <Scoreboard score={score} />
       <div className="game-grid">
         {
             field.map((lane,i) => {
@@ -101,7 +102,10 @@ const Game = props => {
                         : <div key={i.toString() + reversej.toString()} className="game-grid__square"></div>
                 })}
                 </div>
+
+
             })
+
         }
       </div>
       <Player playerPosition={playerPosition} profileSrc={profileUrl} />
