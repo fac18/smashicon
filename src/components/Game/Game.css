@@ -1,7 +1,6 @@
 .game {
   margin: 2rem;
   padding: 1rem;
-  border: 1px solid gray;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;

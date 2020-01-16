@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
 
-import Game from '../Game/Game'
+import Form from '../Form/Form'
 
 function App() {
-  return (
-    <div className="App">
-      <Game />
-    </div>
-  );
+  return <div className="app">
+    <h1 className="splash-title">Smashicon</h1>
+    <Form />
+  </div>
 }
 
 export default App;
