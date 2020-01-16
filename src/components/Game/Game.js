@@ -1,5 +1,8 @@
 import React from 'react';
+import Player from '../Player/Player'
+
 import './Game.css';
+
 import zeroArray from '../../utils/zeroArray'
 import buildIdenticon from '../../utils/buildIdenticon'
 
@@ -16,7 +19,7 @@ const Game = props => {
         const initialField = zeroArray(5,5)
         initialField.forEach((lane,i) => { initialField[i] = lane.concat(initialIdenticon[i]) })
         return initialField
-    }) 
+    })
     const [nextIdenticon, setNextIdenticon] = React.useState(() => {
         return buildIdenticon(followers.shift())
     })
@@ -77,7 +80,8 @@ const Game = props => {
         }
     }, [t])
 
-    return (<div className="game-grid">
+    return (<>
+      <div className="game-grid">
         {
             field.map((lane,i) => {
                 return <div key={i} className="game-grid__column">
@@ -89,9 +93,9 @@ const Game = props => {
                 </div>
             })
         }
-    </div>)
-
-  
+      </div>
+      <Player position={playerPosition} />
+    </>)
 }
 
 export default Game
