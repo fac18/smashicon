@@ -1,17 +1,18 @@
 import React from 'react';
 import Player from '../Player/Player'
+// import Score from '../Score/Score'
 
 import './Game.css';
 
 import zeroArray from '../../utils/zeroArray'
 import buildIdenticon from '../../utils/buildIdenticon'
 
+// hard code data that would be passed in
+const profileUrl = 'https://avatars2.githubusercontent.com/u/50529930?s=400&v=4'
+const interval = 500; // time between steps in ms
 const followers = ['svnmmrs','samhstn', 'nikkesan', 'hajimon54', 'albadylic', 'redahaq' , 'pat-cki' , 'bethanyios' , 'tonylomax' , 'crianonim']
 
 const Game = props => {
-    // hard code data that would be passed in
-    const interval = 500; // time between steps in ms
-
     // set up states
     const [field, setField] = React.useState(() => {
         const username = 'Ayub3' // github username submitted at landing
@@ -32,8 +33,17 @@ const Game = props => {
         const tick = () => { setT(t => t + 1) }
         const timer = setInterval(tick, interval)
 
+        document.addEventListener('keydown', e => {
+          if (e.keyCode === 37) { // left arrow press
+            setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
+          } else if (e.keyCode === 39) { // right arrow press
+            setPlayerPosition(position => position + 1 > 4 ? 4 : position + 1)
+          }
+        })
+
         return () => {
             clearInterval(timer)
+            // window.removeEventListener
         }
     },[])
 
@@ -80,7 +90,7 @@ const Game = props => {
         }
     }, [t])
 
-    return (<>
+    return (<div className="game">
       <div className="game-grid">
         {
             field.map((lane,i) => {
@@ -94,8 +104,8 @@ const Game = props => {
             })
         }
       </div>
-      <Player position={playerPosition} />
-    </>)
+      <Player playerPosition={playerPosition} profileSrc={profileUrl} />
+    </div>)
 }
 
 export default Game
