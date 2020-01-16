@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 
-import Board from '../Board/Board'
+import Game from '../Game/Game'
 
 function App() {
   return (
     <div className="App">
-      {/* <Board username={user} followers={followers} /> */}
+      {/* <Game username={user} followers={followers} /> */}
     </div>
   );
 }
