@@ -1,0 +1,19 @@
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 12vw) ;
+    /* grid: repeat(3, 12vw) / auto-flow; */
+  }
+  
+.game-grid__column {
+    display: grid;
+    grid-template-rows: repeat(10, 8vh);
+  }
+  
+.game-grid__square {
+    margin: 10px;
+    background: gray;
+  }
+
+.game-grid__square--active {
+    background-color: black;
+}
