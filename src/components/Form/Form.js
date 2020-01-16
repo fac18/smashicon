@@ -9,14 +9,14 @@ const Form = () => {
   const [play, setPlay] = React.useState(false);
 
   const changeUsername = e => { setUsername(e.target.value) }
-  const playGame = e => {
+  const getUser = e => {
     e.preventDefault()
     getData(`https://api.github.com/users/${username}`)
       .then(data => setUserData(data))
   }
 
   React.useEffect(() => {
-    document.querySelector('.form__submit').addEventListener('click', playGame)
+    document.querySelector('.form__submit').addEventListener('click', getUser)
   }, [])
 
   if (!userData) {
@@ -25,7 +25,7 @@ const Form = () => {
         Enter your GitHub username:
         <input type="text" className="form__input" value={username} onChange={changeUsername} />
       </label>
-      <input type="submit" className="form__submit" onClick={playGame} />
+      <input type="submit" className="form__submit"/>
     </form>)
   }
 
