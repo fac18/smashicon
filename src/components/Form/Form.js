@@ -42,7 +42,7 @@ const Form = () => {
         <input type="range" min="100" max="1000" step="100" id="difficulty" value={interval} onChange={changeInterval} className="form__range"/>
         <span>easy</span>
       </div>
-      <input type="submit" value="Play!" className="form__submit" onClick={getUser} />
+      <button type="submit" className="form__submit" onClick={getUser}>Play!</button>
     </form>)
   }
 

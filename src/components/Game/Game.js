@@ -29,19 +29,51 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         const tick = () => { setT(t => t + 1) }
         const timer = setInterval(tick, interval)
 
+        const movePlayerLeft = () => {
+          setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
+        }
+        const movePlayerRight = () => {
+          setPlayerPosition(position => position + 1 > 4 ? 4 : position + 1)
+        }
+
+        // set up event listener for desktop (i.e. keyboard users)
         const arrowKeys = e => {
           if (e.keyCode === 37) { // left arrow press
-            setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
+            movePlayerLeft()
           } else if (e.keyCode === 39) { // right arrow press
-            setPlayerPosition(position => position + 1 > 4 ? 4 : position + 1)
+            movePlayerRight()
           }
         }
         document.addEventListener('keydown', arrowKeys)
 
-        // and clear them on unmounting
+        // set up event listeners for mobile (i.e. touch users)
+        let xDown;
+        const touchdown = e => {
+          e.preventDefault() // ensures touch does not trigger mouse events
+          // grab position of centre of finger at beginning of swipe
+          xDown = e.touches[0].clientX // we don't care about y position
+        }
+        const swipe = e => {
+          e.preventDefault()
+          const xMove = e.touches[0].clientX;
+          const xDiff = Math.abs(xDown - xMove)
+          if (xDiff > 30) { // enable only for sufficient swipes
+            if (xMove < xDown) { // swipe left
+              movePlayerLeft()
+            } else if (xMove > xDown) { // swipe right
+              movePlayerRight()
+            }
+          }
+        }
+        document.addEventListener('touchstart', touchdown)
+        document.addEventListener('touchmove', swipe)
+
+        // and clear all of these on unmounting
         return () => {
             clearInterval(timer)
-            window.removeEventListener('keydown', arrowKeys)
+            document.removeEventListener('keydown', arrowKeys)
+            document.removeEventListener('touchstart', touchdown)
+            document.removeEventListener('touchmove',swipe)
         }
     }, [interval]) // dependency array could also be empty, but lint dislikes
 
