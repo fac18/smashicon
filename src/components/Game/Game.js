@@ -29,12 +29,19 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         const tick = () => { setT(t => t + 1) }
         const timer = setInterval(tick, interval)
 
+        const movePlayerLeft = () => {
+          setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
+        }
+        const movePlayerRight = () => {
+          setPlayerPosition(position => position + 1 > 4 ? 4 : position + 1)
+        }
+
         // set up event listener for desktop (i.e. keyboard users)
         const arrowKeys = e => {
           if (e.keyCode === 37) { // left arrow press
-            setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
+            movePlayerLeft()
           } else if (e.keyCode === 39) { // right arrow press
-            setPlayerPosition(position => position + 1 > 4 ? 4 : position + 1)
+            movePlayerRight()
           }
         }
         document.addEventListener('keydown', arrowKeys)
@@ -45,6 +52,11 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
           let touchList = e.changedTouches
           console.log('touchList: ', touchList)
           console.log('first touchList entry (a touch event?): ', touchList[0])
+          if (touchList[0].clientX < touchList[1].clientX) {
+            movePlayerLeft()
+          } else if (touchList[0].clientX > touchList[1].clientX) {
+            movePlayerRight()
+          }
         }
         document.addEventListener('touchmove', swipe)
 
