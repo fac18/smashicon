@@ -1,14 +1,13 @@
 .form {
   font-family: Comfortaa;
   font-size: 1.25rem;
-}
-
-.form__field {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
   background-color: #ffd1dc;
+  border: 1px solid black;
+  padding: 1rem;
 }
 
 .form__legend {

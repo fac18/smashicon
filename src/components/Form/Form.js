@@ -30,22 +30,19 @@ const Form = () => {
   // until username is entered and user AND follower data retrieved, display form
   if (!followers) {
     return (<form className="form">
-      <fieldset className="form__field">
-        <legend className="form__legend">Let's get started</legend>
-        <label htmlFor="username" className="form__label">
-          Enter your GitHub username
-        </label>
-        <input type="text" className="form__input" id="username" value={username} onChange={changeUsername} />
-        <label htmlFor="difficulty" className="form__label">
-          Choose your difficulty
-        </label>
-        <div className="form__range-container">
-          <span>hard</span>
-          <input type="range" min="100" max="1000" step="100" id="difficulty" value={interval} onChange={changeInterval} className="form__range"/>
-          <span>easy</span>
-        </div>
-        <input type="submit" value="Play!" className="form__submit" onClick={getUser} />
-      </fieldset>
+      <label htmlFor="username" className="form__label">
+        Enter your GitHub username
+      </label>
+      <input type="text" className="form__input" id="username" value={username} onChange={changeUsername} />
+      <label htmlFor="difficulty" className="form__label">
+        Choose your difficulty
+      </label>
+      <div className="form__range-container">
+        <span>hard</span>
+        <input type="range" min="100" max="1000" step="100" id="difficulty" value={interval} onChange={changeInterval} className="form__range"/>
+        <span>easy</span>
+      </div>
+      <input type="submit" value="Play!" className="form__submit" onClick={getUser} />
     </form>)
   }
 
