@@ -1,0 +1,32 @@
+.final__container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #ffd1dc;
+  font-family: Comfortaa;
+  padding: 1rem;
+  border: 1px solid black;
+}
+
+.final__title {
+  font-family: Monoton
+}
+
+.final__score {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.final__text {
+  font-size: 1.25rem;
+}
+
+.final__button {
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  width: 60%;
+}

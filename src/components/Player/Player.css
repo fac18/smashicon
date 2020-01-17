@@ -1,14 +1,17 @@
 .player__container {
-  min-height: 10vw;
+  min-height: 6vw;
   display: grid;
-  grid-template-columns: repeat(5, 10vw);
+  grid-template-columns: repeat(5, 6vw);
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .player__icon {
-  max-width: 10vw;
-  max-height: 10vw;
+  /* border: 2px solid black; */
+  border-radius: 50%;
+  max-width: 6vw;
+  max-height: 6vw;
 }
 
 .player__space {

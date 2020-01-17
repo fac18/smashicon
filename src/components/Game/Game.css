@@ -1,7 +1,5 @@
 .game {
-  margin: 2rem;
-  padding: 1rem;
-  border: 1px solid gray;
+  margin: 1rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -10,16 +8,16 @@
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(5, 10vw);
+  grid-template-columns: repeat(5, 6vw);
 }
 
 .game-grid__column {
   display: grid;
-  grid-template-rows: repeat(10, 10vw);
+  grid-template-rows: repeat(10, 6vw);
 }
 
 .game-grid__square {
-  margin: 10px;
+  margin: 5px;
   background: gray;
   opacity: 0.5;
 }
