@@ -66,7 +66,7 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
           }
         }
         document.addEventListener('touchstart', touchdown)
-        document.addEventListener('touchend', swipe)
+        document.addEventListener('touchmove', swipe)
 
         // and clear all of these on unmounting
         return () => {
