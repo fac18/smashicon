@@ -40,12 +40,19 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         document.addEventListener('keydown', arrowKeys)
 
         // set up event listener for mobile (i.e. touch users)
-
+        const swipe = e => {
+          e.preventDefault() // ensures touch does not trigger mouse events
+          let touchList = e.changedTouches
+          console.log('touchList: ', touchList)
+          console.log('first touchList entry (a touch event?): ', touchList[0])
+        }
+        document.addEventListener('touchmove', swipe)
 
         // and clear them on unmounting
         return () => {
             clearInterval(timer)
             document.removeEventListener('keydown', arrowKeys)
+            document.removeEventListener('touchmove',swipe)
         }
     }, [interval]) // dependency array could also be empty, but lint dislikes
 
