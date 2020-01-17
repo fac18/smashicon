@@ -29,6 +29,7 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         const tick = () => { setT(t => t + 1) }
         const timer = setInterval(tick, interval)
 
+        // set up event listener for desktop (i.e. keyboard users)
         const arrowKeys = e => {
           if (e.keyCode === 37) { // left arrow press
             setPlayerPosition(position => position - 1 < 0 ? 0 : position - 1)
@@ -38,10 +39,13 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         }
         document.addEventListener('keydown', arrowKeys)
 
+        // set up event listener for mobile (i.e. touch users)
+
+
         // and clear them on unmounting
         return () => {
             clearInterval(timer)
-            window.removeEventListener('keydown', arrowKeys)
+            document.removeEventListener('keydown', arrowKeys)
         }
     }, [interval]) // dependency array could also be empty, but lint dislikes
 
