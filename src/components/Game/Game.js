@@ -57,10 +57,10 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
           e.preventDefault()
           const xMove = e.touches[0].clientX;
           const xDiff = Math.abs(xDown - xMove)
-          if (xDiff > 20) {
-            if (xMove < xDown) {
+          if (xDiff > 30) { // enable only for sufficient swipes
+            if (xMove < xDown) { // swipe left
               movePlayerLeft()
-            } else if (xMove > xDown) {
+            } else if (xMove > xDown) { // swipe right
               movePlayerRight()
             }
           }
