@@ -57,7 +57,7 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
           e.preventDefault()
           const xMove = e.touches[0].clientX;
           const xDiff = Math.abs(xDown - xMove)
-          if (xDiff > 50) {
+          if (xDiff > 20) {
             if (xMove < xDown) {
               movePlayerLeft()
             } else if (xMove > xDown) {
@@ -66,9 +66,9 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
           }
         }
         document.addEventListener('touchstart', touchdown)
-        document.addEventListener('touchmove', swipe)
+        document.addEventListener('touchend', swipe)
 
-        // and clear them on unmounting
+        // and clear all of these on unmounting
         return () => {
             clearInterval(timer)
             document.removeEventListener('keydown', arrowKeys)
