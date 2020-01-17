@@ -1,7 +1,14 @@
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Monoton&display=swap');
+
+/* App CSS */
+
 .app {
 
 }
 
 .splash-title {
-  
+  font-family: Monoton;
+  font-size: 2.5rem;
 }

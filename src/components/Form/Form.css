@@ -1,0 +1,43 @@
+.form {
+  font-family: Comfortaa;
+  font-size: 1.25rem;
+}
+
+.form__field {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffd1dc;
+}
+
+.form__legend {
+  font-weight: 1000;
+}
+
+.form__label {
+  padding: 0.5rem;
+}
+
+.form__input {
+  text-align: center;
+  font-size: 2rem;
+  margin: 0 1rem 1rem 1rem;
+}
+
+.form__range-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.form__range {
+  margin: 0 1rem 1rem 1rem;
+}
+
+.form__submit {
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  width: 60%;
+}
