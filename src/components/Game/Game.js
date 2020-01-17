@@ -46,24 +46,29 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         }
         document.addEventListener('keydown', arrowKeys)
 
-        // set up event listener for mobile (i.e. touch users)
-        const swipe = e => {
+        // set up event listeners for mobile (i.e. touch users)
+        let xDown;
+        const touchdown = e => {
           e.preventDefault() // ensures touch does not trigger mouse events
-          let touchList = e.changedTouches
-          console.log('touchList: ', touchList)
-          console.log('first touchList entry (a touch event?): ', touchList[0])
-          if (touchList[0].clientX < touchList[1].clientX) {
+          // grab position of centre of finger at beginning of swipe
+          xDown = e.touches[0].clientX // we don't care about y position
+        }
+        const swipe = e => {
+          e.preventDefault()
+          if (e.touches[0].clientX < xDown) {
             movePlayerLeft()
-          } else if (touchList[0].clientX > touchList[1].clientX) {
+          } else if (e.touches[0].clientX > xDown) {
             movePlayerRight()
           }
         }
+        document.addEventListener('touchstart', touchdown)
         document.addEventListener('touchmove', swipe)
 
         // and clear them on unmounting
         return () => {
             clearInterval(timer)
             document.removeEventListener('keydown', arrowKeys)
+            document.removeEventListener('touchstart', touchdown)
             document.removeEventListener('touchmove',swipe)
         }
     }, [interval]) // dependency array could also be empty, but lint dislikes
