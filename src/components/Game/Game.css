@@ -26,3 +26,9 @@
   background-color: black;
   opacity: 1;
 }
+
+@media (max-height: 70vw) {
+  .game-grid__column {
+    grid-template-rows: repeat(10, 3vw);
+  }
+}
