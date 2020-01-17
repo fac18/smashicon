@@ -55,10 +55,14 @@ const Game = ({ username, interval, followers, avatarUrl }) => {
         }
         const swipe = e => {
           e.preventDefault()
-          if (e.touches[0].clientX < xDown) {
-            movePlayerLeft()
-          } else if (e.touches[0].clientX > xDown) {
-            movePlayerRight()
+          const xMove = e.touches[0].clientX;
+          const xDiff = Math.abs(xDown - xMove)
+          if (xDiff > 50) {
+            if (xMove < xDown) {
+              movePlayerLeft()
+            } else if (xMove > xDown) {
+              movePlayerRight()
+            }
           }
         }
         document.addEventListener('touchstart', touchdown)
