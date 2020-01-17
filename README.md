@@ -1,6 +1,8 @@
 # SMASHICON
 
-The game where you evade your followers!
+The game where you smash through your followers!
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b76ea68c-2b6a-4e91-9343-eb5f444db034/deploy-status)](https://app.netlify.com/sites/smashicon/deploys)
 
 ## Concept
 
@@ -19,6 +21,8 @@ Our game will work like so:
 - Make the time interval tweakable i.e. can make game harder
 - Once you get past an identicon, the related user's profile will appear in a 'Followers Smashed' area
 - Add an additional score aspect by implementing GitHub stars to grab
+
+---
 
 ## Identicon construction
 
@@ -64,3 +68,8 @@ NB. The 16th number is discarded
 03 08 13 ## ##
 04 09 14 ## ##
 05 10 15 ## ##
+
+As yet, neither of these patterns are yielding proper GitHub identicons...
+
+---
+
