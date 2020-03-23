@@ -43,17 +43,16 @@ Our game will work like so:
 
 ### zeroArray
 
-
 ```javascript
-const zeroArray = (x,y) => {
+const zeroArray = (x, y) => {
   let a = []
-  for (let i=0; i<x; i++) {
+  for (let i = 0; i < x; i++) {
     a.push(new Array(y).fill(0))
   }
   return a
 }
 
-export default zeroArray;
+export default zeroArray
 ```
 
 ---
@@ -66,9 +65,9 @@ The algorithm GitHub uses is not public, which makes this job a bit more difficu
 
 ---
 
-For example, @svnmmrs's identicon looks like:
+For example, @edificex's identicon looks like:
 
-![](https://github.com/identicons/svnmmrs.png)
+![](https://github.com/identicons/edificex.png)
 
 ---
 
@@ -79,13 +78,10 @@ According to @samjam48's readme for his [elixir-identicon](https://github.com/sa
 - producing an MD5 hash of the username
 - parsing this hash as an array of 16 numbers in base 16 (i.e. hexes)
 - defining the colour by taking the first three of these numbers as arguments to RGB
-
----
-
-- colouring in blocks for the first 3 columns according to resolving each hex to true or false against some test*, when they are associated with cells according to the pattern below
+- colouring in blocks for the first 3 columns according to resolving each hex to true or false against some test\*, when they are associated with cells according to the pattern below
 - mirroring the first two columns into the last two
 
-*According to [Jussi Judin's article](https://barro.github.io/2018/02/avatars-identicons-and-hash-visualization/), the truth test used is **parity**, (i.e. is the number, in base 2, even or odd?)
+\*According to [Jussi Judin's article](https://barro.github.io/2018/02/avatars-identicons-and-hash-visualization/), the truth test used is **parity**, (i.e. is the number, in base 2, even or odd?)
 
 ---
 
@@ -123,7 +119,7 @@ const buildIdenticon = username => {
   let hexes = hash.match(/.{2}/g) // split into 16 numbers (all hex, base 16)
   let identicon = zeroArray(5,5) // initialise identicon as empty 5x5 grid
   // pattern 1 (see readme)
-  for (let j=4; j>=0; j--) {
+  for (let j=4; j>=0;` j--) {
     for (let i=0; i<3; i++) {
       identicon[i][j] = parseInt(hexes[i + (4-j)*3],16) % 2 === 0 ? 1 : 0;
     }
@@ -137,7 +133,7 @@ const buildIdenticon = username => {
 ## The Game component
 
 ### Design
- 
+
 ![](https://i.imgur.com/JAZpWPw.jpg)
 
 ---
@@ -151,15 +147,17 @@ const buildIdenticon = username => {
 ```javascript
 // set up states
 const [field, setField] = React.useState(() => {
-    const initialIdenticon = buildIdenticon(username)
-    const initialField = zeroArray(5,5)
-    initialField.forEach((lane,i) => { initialField[i] = lane.concat(initialIdenticon[i]) })
-    return initialField
+  const initialIdenticon = buildIdenticon(username)
+  const initialField = zeroArray(5, 5)
+  initialField.forEach((lane, i) => {
+    initialField[i] = lane.concat(initialIdenticon[i])
+  })
+  return initialField
 })
 const [nextIdenticon, setNextIdenticon] = React.useState(() => {
-    return buildIdenticon(followers.shift())
+  return buildIdenticon(followers.shift())
 })
-const [t, setT] = React.useState(0);
+const [t, setT] = React.useState(0)
 const [playerPosition, setPlayerPosition] = React.useState(2)
 const [score, setScore] = React.useState(0)
 const [gameOver, setGameOver] = React.useState(false)
@@ -170,12 +168,15 @@ const [gameOver, setGameOver] = React.useState(false)
 ### Setting the timer
 
 ```javascript
-React.useEffect(()=>{
-  const tick = () => { setT(t => t + 1) }
+React.useEffect(() => {
+  const tick = () => {
+    setT(t => t + 1)
+  }
   const timer = setInterval(tick, interval)
-  return () => {clearInterval(timer)}
- }, [interval]) // dependency array could also be empty, but lint dislikes
-
+  return () => {
+    clearInterval(timer)
+  }
+}, [interval]) // dependency array could also be empty, but lint dislikes
 ```
 
 ---
@@ -183,48 +184,45 @@ React.useEffect(()=>{
 ### Evolving the game per time
 
 ```javascript
- React.useEffect(() => {
-        if (t % 10 === 0 && t !== 0) {
-            setField(field => {
-                return field.map((lane,i) => {
-                    const block = lane.shift()
-                    if (block && playerPosition === i) {
-                        setScore(score => score + 1)
-                    }
-                    lane.push(nextIdenticon[i].shift())
-                    return lane
-                })
-            })
-            if (followers.length) {
-                setNextIdenticon(buildIdenticon(followers.shift()))
-            } else {
-                setGameOver(true)
-                console.log(`Game finished. Your score was ${score}!`)
-            }
+React.useEffect(() => {
+  if (t % 10 === 0 && t !== 0) {
+    setField(field => {
+      return field.map((lane, i) => {
+        const block = lane.shift()
+        if (block && playerPosition === i) {
+          setScore(score => score + 1)
         }
-        else if(t % 10 < 6 && t !== 0) {
-            setField(field => {
-                return field.map((lane,i) => {
-                    lane.shift()
-                    lane.push(0)
-                    return lane
-                })
-            })
+        lane.push(nextIdenticon[i].shift())
+        return lane
+      })
+    })
+    if (followers.length) {
+      setNextIdenticon(buildIdenticon(followers.shift()))
+    } else {
+      setGameOver(true)
+      console.log(`Game finished. Your score was ${score}!`)
+    }
+  } else if (t % 10 < 6 && t !== 0) {
+    setField(field => {
+      return field.map((lane, i) => {
+        lane.shift()
+        lane.push(0)
+        return lane
+      })
+    })
+  } else if (t % 10 < 10 && t !== 0) {
+    setField(field => {
+      return field.map((lane, i) => {
+        const block = lane.shift()
+        if (block && playerPosition === i) {
+          setScore(score => score + 1) // run code for player to gain a point
         }
-        else if(t % 10 < 10 && t !== 0) {
-            setField(field => {
-                return field.map((lane,i) => {
-                    const block = lane.shift()
-                    if (block && playerPosition === i) {
-                        setScore(score => score + 1)// run code for player to gain a point
-                    }
-                    lane.push(nextIdenticon[i].shift())
-                    return lane
-                })
-            })
-        }
-    }, [t]) 
-
+        lane.push(nextIdenticon[i].shift())
+        return lane
+      })
+    })
+  }
+}, [t])
 ```
 
 ---
@@ -233,28 +231,38 @@ React.useEffect(()=>{
 
 ```javascript
 if (!gameOver) {
-  return (<div className="game">
-    <Scoreboard score={score} />
-    <div className="game-grid">
-      {
-          field.map((lane,i) => {
-              return <div key={i} className="game-grid__column">
-              {lane.map((block,j) => {
-                  let reversej = (lane.length-1)-j;
-                  return lane[reversej] ? <div key={i.toString() + reversej.toString()} className="game-grid__square game-grid__square--active"></div>
-                      : <div key={i.toString() + reversej.toString()} className="game-grid__square"></div>
+  return (
+    <div className='game'>
+      <Scoreboard score={score} />
+      <div className='game-grid'>
+        {field.map((lane, i) => {
+          return (
+            <div key={i} className='game-grid__column'>
+              {lane.map((block, j) => {
+                let reversej = lane.length - 1 - j
+                return lane[reversej] ? (
+                  <div
+                    key={i.toString() + reversej.toString()}
+                    className='game-grid__square game-grid__square--active'
+                  ></div>
+                ) : (
+                  <div
+                    key={i.toString() + reversej.toString()}
+                    className='game-grid__square'
+                  ></div>
+                )
               })}
-              </div>
-          })
-      }
+            </div>
+          )
+        })}
+      </div>
+      <Player playerPosition={playerPosition} avatarUrl={avatarUrl} />
     </div>
-    <Player playerPosition={playerPosition} avatarUrl={avatarUrl} />
-  </div>)
+  )
 } else {
   return <FinalScreen score={score} />
 }
 ```
-
 
 ---
 
@@ -298,7 +306,7 @@ Here's what we came up with. It's not a perfect implementation by any stretch, b
 
 ```javascript
 // set up event listeners for mobile (i.e. touch users)
-let xDown;
+let xDown
 const touchdown = e => {
   e.preventDefault() // ensures touch does not trigger mouse events
   // grab position of centre of finger at beginning of swipe
@@ -306,12 +314,15 @@ const touchdown = e => {
 }
 const swipe = e => {
   e.preventDefault()
-  const xMove = e.touches[0].clientX;
+  const xMove = e.touches[0].clientX
   const xDiff = Math.abs(xDown - xMove)
-  if (xDiff > 30) { // enable only for sufficient swipes
-    if (xMove < xDown) { // swipe left
+  if (xDiff > 30) {
+    // enable only for sufficient swipes
+    if (xMove < xDown) {
+      // swipe left
       movePlayerLeft()
-    } else if (xMove > xDown) { // swipe right
+    } else if (xMove > xDown) {
+      // swipe right
       movePlayerRight()
     }
   }
@@ -333,24 +344,37 @@ We haven't got it working yet but our attempt is as follows:
 ---
 
 ```javascript
-test('check if the form works' , () => {
-  const { getByLabelText, getByText, findByText, container, debug } = render(<Form/>)
+test('check if the form works', () => {
+  const { getByLabelText, getByText, findByText, container, debug } = render(
+    <Form />
+  )
   const inputNode = getByLabelText('Enter your GitHub username')
-  fireEvent.change(inputNode, {target : {value:'ayub3'}})
+  fireEvent.change(inputNode, { target: { value: 'ayub3' } })
   const slider = container.querySelector('.form__range')
-  fireEvent.change(slider , {target : {value: 500}})
+  fireEvent.change(slider, { target: { value: 500 } })
   const button = getByText('Play!')
   // mock fetch for both API calls made by Form component on submission
-  const mockUserResponse = {username:'ayub3', followers_url: '' , interval : 500 , avatar_url : 'https://avatars3.githubusercontent.com/u/50529930?s=460&v=4'}
-  const mockFollowersResponse = [{login:'svnmmrs'}, {login:'redahaq'}]
+  const mockUserResponse = {
+    username: 'ayub3',
+    followers_url: '',
+    interval: 500,
+    avatar_url: 'https://avatars3.githubusercontent.com/u/50529930?s=460&v=4',
+  }
+  const mockFollowersResponse = [{ login: 'svnmmrs' }, { login: 'redahaq' }]
   global.fetch = jest
-      .fn()
-      .mockImplementationOnce(() =>
-        Promise.resolve({ status: 200, json: () => Promise.resolve(mockUserResponse) })
-      )
-      .mockImplementationOnce(() => {
-        Promise.resolve({ status: 200, json: () => Promise.resolve(mockFollowersResponse)})
+    .fn()
+    .mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 200,
+        json: () => Promise.resolve(mockUserResponse),
       })
+    )
+    .mockImplementationOnce(() => {
+      Promise.resolve({
+        status: 200,
+        json: () => Promise.resolve(mockFollowersResponse),
+      })
+    })
   fireEvent.click(button)
   return findByText('0') // look for score of 0 once Form unmounted and Game mounted
 })
