@@ -30,9 +30,9 @@ We decided to build the user's identicons from scratch (given their username), s
 
 The algorithm GitHub uses is not public, which makes this job a bit more difficult.
 
-For example, @svnmmrs's identicon looks like:
+For example, @edificex's identicon looks like:
 
-![](https://github.com/identicons/svnmmrs.png)
+![](https://github.com/identicons/edificex.png)
 
 ### The method
 
@@ -41,11 +41,10 @@ According to @samjam48's readme for his [elixir-identicon](https://github.com/sa
 - producing an MD5 hash of the username
 - parsing this hash as an array of 16 numbers in base 16 (i.e. hexes)
 - defining the colour by taking the first three of these numbers as arguments to RGB
-- colouring in blocks for the first 3 columns according to resolving each hex to true or false against some test*, when they are associated with cells according to the pattern below
+- colouring in blocks for the first 3 columns according to resolving each hex to true or false against some test\*, when they are associated with cells according to the pattern below
 - mirroring the first two columns into the last two
 
-
-*According to [Jussi Judin's article](https://barro.github.io/2018/02/avatars-identicons-and-hash-visualization/), the truth test used is **parity**, (i.e. is the number, in base 2, even or odd?)
+\*According to [Jussi Judin's article](https://barro.github.io/2018/02/avatars-identicons-and-hash-visualization/), the truth test used is **parity**, (i.e. is the number, in base 2, even or odd?)
 
 #### Patterns
 
@@ -73,9 +72,9 @@ As yet, neither of these patterns are yielding proper GitHub identicons...
 
 ---
 
-### GameBoard 
- 
-``` const zeroArray = (x,y) => {
+### GameBoard
+
+```const zeroArray = (x,y) => {
   let a = []
   for (let i=0; i<x; i++) {
     a.push(new Array(y).fill(0))
@@ -89,9 +88,6 @@ export default zeroArray;
 ```
 
 ---
-
-
-
 
 ## No scrolling
 
@@ -121,7 +117,7 @@ Here's what we came up with. It's not a perfect implementation by any stretch, b
 
 ```javascript
 // set up event listeners for mobile (i.e. touch users)
-let xDown;
+let xDown
 const touchdown = e => {
   e.preventDefault() // ensures touch does not trigger mouse events
   // grab position of centre of finger at beginning of swipe
@@ -129,12 +125,15 @@ const touchdown = e => {
 }
 const swipe = e => {
   e.preventDefault()
-  const xMove = e.touches[0].clientX;
+  const xMove = e.touches[0].clientX
   const xDiff = Math.abs(xDown - xMove)
-  if (xDiff > 30) { // enable only for sufficient swipes
-    if (xMove < xDown) { // swipe left
+  if (xDiff > 30) {
+    // enable only for sufficient swipes
+    if (xMove < xDown) {
+      // swipe left
       movePlayerLeft()
-    } else if (xMove > xDown) { // swipe right
+    } else if (xMove > xDown) {
+      // swipe right
       movePlayerRight()
     }
   }
@@ -146,4 +145,3 @@ document.addEventListener('touchmove', swipe)
 ---
 
 ## Testing component unmounts
-
